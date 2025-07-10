@@ -4,41 +4,40 @@ import "./globals.css";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import { useUser } from "@/hooks/useUser";
+import Sidebar from "@/components/Sidebar";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+	variable: "--font-geist-sans",
+	subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+	variable: "--font-geist-mono",
+	subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Raph needs a budget",
-  description: "Envelope System Personal Budgeting App",
+	title: "Raph needs a budget",
+	description: "Envelope System Personal Budgeting App",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SupabaseProvider>
-          <UserProvider>
-            {/* <ModalProvider /> */}
-              {/* {children} */}
-              hi
-          </UserProvider>
-        </SupabaseProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+			>
+				<SupabaseProvider>
+					<UserProvider>
+						{/* <ModalProvider /> */}
+						<Sidebar>{children}</Sidebar>
+					</UserProvider>
+				</SupabaseProvider>
+			</body>
+		</html>
+	);
 }
