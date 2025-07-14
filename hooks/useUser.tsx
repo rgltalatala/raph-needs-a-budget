@@ -33,32 +33,9 @@ export const MyUserContextProvider = (props: Props) => {
 	const [isLoadingData, setIsLoadingData] = useState(false);
 	const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
-	const getUserDetails = async () => {
-		const { data, error } = await supabase
-			.from("users")
-			.select("*")
-			.single();
-
-		if (error) throw error;
-
-		return { data };
-	};
-
 	useEffect(() => {
 		if (user && !isLoadingData && !userDetails) {
 			setIsLoadingData(true);
-			getUserDetails()
-				.then((result) => {
-					setUserDetails(result.data as UserDetails);
-
-					setIsLoadingData(false);
-				})
-				.catch((error) => {
-					console.error("Failed to fetch user details:", error);
-				})
-				.finally(() => {
-					setIsLoadingData(false);
-				});
 		} else if (!user && !isLoadingUser && !isLoadingData) {
 			setUserDetails(null);
 		}

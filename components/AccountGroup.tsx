@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AccountGroup as AccountGroupType } from "../types";
 import Account from "./Account";
-import { HiChevronDown, HiChevronUp } from "react-icons/hi";
+import { HiOutlineChevronDoubleDown, HiOutlineChevronDoubleUp } from "react-icons/hi";
 
 interface AccountGroupProps {
 	accountGroup: AccountGroupType;
@@ -23,7 +23,7 @@ const AccountGroup = (props: AccountGroupProps) => {
 				onClick={() => setOpen(!open)}
 			>
 				<div className="flex content-center items-center">
-					<div className="p-1">{open ? <HiChevronDown /> : <HiChevronUp />}</div>
+					<div className="p-1">{open ? <HiOutlineChevronDoubleDown /> : <HiOutlineChevronDoubleUp />}</div>
 					<p>{title}</p>
 				</div>
 				<div className="pr-2">{accountGroupTotal}</div>

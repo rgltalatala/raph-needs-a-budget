@@ -49,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 				{/* User accounts */}
                 <AccountGroups />
 			</div>
-			<main className="h-full flex-1 overflow-y-auto py-2">
+			<main className="h-full flex-1 overflow-y-auto">
 				{children}
 			</main>
 		</div>
