@@ -14,7 +14,7 @@ interface Props {
 
 export default async function UserScopedLayout({ children, params }: Props) {
 	const supabase = createClient();
-	console.log("supabase", supabase);
+	// console.log("supabase", supabase);
 	// const {
 	// 	data: { user },
 	// } = await supabase.auth.getUser();

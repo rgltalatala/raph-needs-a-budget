@@ -1,6 +1,7 @@
 "use client";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { redirect } from "next/navigation";
 
 const LogoutButton = () => {
 	const supabase = useSupabaseClient();
@@ -10,6 +11,8 @@ const LogoutButton = () => {
 		if (error) {
 			console.error("Error logging out:", error.message);
 		}
+
+		redirect('/login');
 	};
 
 	return (
