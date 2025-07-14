@@ -8,7 +8,6 @@ import { useUser } from "@/hooks/useUser";
 
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
-import LogoutButton from "./LogoutButton";
 
 interface HeaderProps {
 	children: React.ReactNode;
@@ -75,7 +74,6 @@ const Header: React.FC<HeaderProps> = (props) => {
 					<p>Ready to Assign</p>
 				</div>
 			</div>
-			<LogoutButton />
 			{children}
 		</div>
 	);

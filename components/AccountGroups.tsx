@@ -38,7 +38,7 @@ const AccountGroups = () => {
 		},
 	];
 	return (
-		<div className="flex flex-col p-2 h-full">
+		<div className="flex flex-col p-2">
 			{userAcountGroups.map((accountGroup) => (
 				<AccountGroup key={accountGroup.id} accountGroup={accountGroup} />
 			))}
