@@ -4,12 +4,10 @@ import { useRouter } from "next/navigation";
 import { HiArrowCircleLeft, HiArrowCircleRight, HiHome } from "react-icons/hi";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
-import { Button } from "./Button";
 import LogoutButton from "./LogoutButton";
 
 interface HeaderProps {
@@ -20,7 +18,6 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = (props) => {
 	const { children, className } = props;
 
-	// const { onOpen } = useAuthModal();
 	const router = useRouter();
 
 	const supabaseClient = useSupabaseClient();

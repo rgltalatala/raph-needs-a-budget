@@ -1,13 +1,11 @@
+"use client";
+
 import { UserDetails } from "@/types";
-import { User } from "@supabase/auth-helpers-nextjs";
-import {
-	useSessionContext,
-	useUser as useSupaUser,
-} from "@supabase/auth-helpers-react";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type UserContextType = {
-	accessToken: string | null;
 	user: User | null;
 	userDetails: UserDetails | null;
 	isLoading: boolean;
@@ -22,33 +20,46 @@ export interface Props {
 }
 
 export const MyUserContextProvider = (props: Props) => {
-	const {
-		session,
-		isLoading: isLoadingUser,
-		supabaseClient: supabase,
-	} = useSessionContext();
-
-	const user = useSupaUser();
-	const accessToken = session?.access_token ?? null;
-	const [isLoadingData, setIsLoadingData] = useState(false);
+	const supabase = createClient();
+	const [user, setUser] = useState<User | null>(null);
 	const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		if (user && !isLoadingData && !userDetails) {
-			setIsLoadingData(true);
-		} else if (!user && !isLoadingUser && !isLoadingData) {
-			setUserDetails(null);
-		}
-	}, [user, isLoadingUser]);
+		const fetchUser = async () => {
+			setIsLoading(true);
+			const {
+				data: { user },
+				error,
+			} = await supabase.auth.getUser();
+			if (error) {
+				console.error("Error fetching user:", error);
+				setUser(null);
+			} else {
+				setUser(user);
+			}
+			setIsLoading(false);
+		};
 
-	const value = {
-		accessToken,
-		userDetails,
-		user,
-		isLoading: isLoadingUser || isLoadingData,
-	};
+		fetchUser();
 
-	return <UserContext.Provider value={value} {...props} />;
+		const { data: authListener } = supabase.auth.onAuthStateChange(
+			(_event, session) => {
+				setUser(session?.user ?? null);
+			}
+		);
+
+		return () => {
+			authListener.subscription.unsubscribe();
+		};
+	}, [supabase]);
+
+	return (
+		<UserContext.Provider
+			value={{ user, userDetails, isLoading }}
+			{...props}
+		/>
+	);
 };
 
 export const useUser = () => {
