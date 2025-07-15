@@ -18,7 +18,7 @@ const AccountGroup = (props: AccountGroupProps) => {
 
 	return (
 		<div>
-			<div
+			<button
 				className="flex justify-between w-full border-b-2 pb-1"
 				onClick={() => setOpen(!open)}
 			>
@@ -27,7 +27,7 @@ const AccountGroup = (props: AccountGroupProps) => {
 					<p>{title}</p>
 				</div>
 				<div className="pr-2">{accountGroupTotal}</div>
-			</div>
+			</button>
 			{open &&
 				accounts.map((account) => (
 					<Account key={account.id} account={account} />

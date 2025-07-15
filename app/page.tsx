@@ -1,4 +1,3 @@
-import { useUser } from "@/hooks/useUser";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -10,7 +9,7 @@ export default async function Home() {
 	// If the user is signed in, redirect to their budget
 	if (user) {
 		redirect(
-			`/${user}/budget/${new Date()
+			`/${user.id}/budget/${new Date()
 				.toISOString()
 				.slice(0, 7)
 				.replace("-", "")}`
